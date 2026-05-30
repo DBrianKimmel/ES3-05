@@ -81,3 +81,4 @@ board_build.extra_flags =
 * [What is PlatformIO]()
 * [PlatformIO Project Examples](https://github.com/platformio/platformio-examples)
 * [S3](https://www.circuitstate.com/tutorials/getting-started-with-esp32-s3-wi-fi-bluetooth-soc-using-esp32-s3-dev-kit-nxr8/)
+* [Dronebot](https://dronebotworkshop.com/esp32-ethernet/)

@@ -1,5 +1,5 @@
 // Name:     ES3-05  main.cpp
-// Updated:  2026-05-24
+// Updated:  2026-05-29
 
 // Board: ESP32-S3-ETH
 
@@ -9,51 +9,57 @@
 
 //==============
 // Bluetooth and BLE
-
-// #define HAS_BLUETOOTH true
-// #define HAS_BLE true
+#define HAS_BLUETOOTH() 0
+#define HAS_BLE() 0
+#if HAS_BLUETOOTH() || HAS_BLE()
+#endif
 
 //==============
 // camera
-
-// #define HAS_CAMERA true
+#define HAS_CAMERA() 0
+#if HAS_CAMERA()
+#endif
 
 //==============
 // Ethernet
+#define HAS_ETHERNET() 1
+#if HAS_ETHERNET()
+#include <EthernetPoe.hpp>
+#endif
 
-// #define HAS_ETHERNET false
+//==============
+// MQTT
+#define HAS_MQTT() 0
+#if HAS_MQTT()
+#endif
 
 //==============
 // RGBLed
-
 #define HAS_RGBLED() 1
 #if HAS_RGBLED()
 #include "RgbLed.hpp"
-void rgbSetup();
-void rgbLoop();
 #endif
 
 //==============
 // OTA and/or OTW
-
-// #define OTA 1
+#define HAS_OTA() 0
 // #define OtaEthernet 1
+// #define OtaWiFi 1
 // #define OtaThread
+#if HAS_OTA()
+#endif
 
 //==============
 // SDCard
-
-#define HAS_SDCARD false
-#if HAS_SDCARD
-#include <SD.h>
+#define HAS_SDCARD() 1
+#if HAS_SDCARD()
+#include <SdCard.hpp>
 #endif
 
 //==============
 // Thread
-
-#define HAS_THREAD false
-#if HAS_THREAD
-#include <Thread.h>
+#define HAS_THREAD() 0
+#if HAS_THREAD()
 #endif
 
 //==============
@@ -65,9 +71,8 @@ void rgbLoop();
 
 //==============
 // Zigbee
-
-#define HAS_ZIGBEE false
-#if HAS_ZIGBEE
+#define HAS_ZIGBEE() 0
+#if HAS_ZIGBEE()
 #endif
 
 // Other definitions can be added here, e.g. for sensors, displays, etc.
@@ -76,7 +81,13 @@ void rgbLoop();
 
 void setup()
 {
+    // Start serial communication for debugging
     Serial.begin(115200);
+    // while (!Serial)
+    // {
+    //     ; // Wait for the serial port to be ready
+    // }
+    delay(1000); // Give some time for the serial monitor to initialize
     Serial.println("Hello World - I am starting now.");
 
 #if HAS_RGBLED()
@@ -85,7 +96,12 @@ void setup()
 #if HAS_WIFI_STA()
     wifiStaSetup();
 #endif
+#if (HAS_ETHERNET())
+    ethernetSetup();
+#endif
 
+    delay(1000); // Allow some time for setup routines to complete
+    Serial.println("Hello World - I have completed the startup routines.");
 }
 
 //============================================================================================//
@@ -99,8 +115,14 @@ void loop()
 
 #if HAS_WIFI_STA()
     wifiStaLoop();
-
 #endif
+
+#if (HAS_ETHERNET())
+    ethernetLoop();
+#endif
+
+    // Add a small delay to avoid overwhelming the loop
+    delay(100);
 }
 
 //============================================================================================//
