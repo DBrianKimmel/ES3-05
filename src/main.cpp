@@ -6,6 +6,8 @@
 //==============
 // Basic
 #include <Arduino.h>
+#include <SPI.h>
+#include <Wire.h>
 
 //==============
 // Bluetooth and BLE

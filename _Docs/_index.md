@@ -72,6 +72,29 @@ board_build.extra_flags =
 
 1. get a basic system to build, upload, run and Produce progress information on a monitor and in logs.
 
+## Git
+
+```txt
+git remote add origin https://github.com/DBrianKimmel/ES3-05.git
+
+# Verify remote is added
+git remote -v
+# You should see:
+#    origin  https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git (fetch)
+#    origin  https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git (push)
+
+# Check current branch
+git branch
+# Rename to main if it is not main already (github uses main)
+git branch -M main
+
+# Push your code
+git push -u origin main
+# The -u flag sets up tracking between your local main branch and the remote main branch.
+
+
+```
+
 ## References
 
 * [1](https://www.waveshare.com/wiki/ESP32-S3-ETH)
