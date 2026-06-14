@@ -1,5 +1,6 @@
-//
-
+// Name:     test_wifi_sta.cpp
+// Updated:  2024-06-13
+// https://github.com/jesdev-io/pioUnitTestingGuide
 void setup () {
     delay(2000); // Wait for 2 seconds before starting the tests
 }

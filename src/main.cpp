@@ -23,6 +23,13 @@
 #endif
 
 //==============
+// display
+#define HAS_DISPLAY()
+#if HAS_DISPLAY()
+#include "Display.hpp"
+#endif
+
+//==============
 // Ethernet
 #define HAS_ETHERNET() 1
 #if HAS_ETHERNET()
